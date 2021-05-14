@@ -22,9 +22,9 @@ import {
 } from "@chakra-ui/core";
 
 import { useSpaceX } from "../utils/use-space-x";
-import { formatDateTime } from "../utils/format-date";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
+import DateTime from "./date-time";
 
 export default function Launch() {
   let { launchId } = useParams();
@@ -123,10 +123,8 @@ function TimeAndLocation({ launch }) {
             Launch Date
           </Box>
         </StatLabel>
-        <StatNumber fontSize={["md", "xl"]}>
-          {formatDateTime(launch.launch_date_local)}
-        </StatNumber>
-        <StatHelpText>{timeAgo(launch.launch_date_utc)}</StatHelpText>
+        <DateTime timestamp={launch.launch_date_local} />
+        <StatHelpText>{timeAgo(launch.launch_date_local)}</StatHelpText>
       </Stat>
       <Stat>
         <StatLabel display="flex">
