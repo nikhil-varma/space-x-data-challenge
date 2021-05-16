@@ -25,6 +25,8 @@ import { useSpaceX } from "../utils/use-space-x";
 import { formatDateTime } from "../utils/format-date";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
+import FavouriteButton from "./favourite-button";
+import StorageContext from "../providers/local-storage-context";
 
 export default function Launch() {
   let { launchId } = useParams();
@@ -93,7 +95,17 @@ function Header({ launch }) {
         py="2"
         borderRadius="lg"
       >
-        {launch.mission_name}
+        <Flex alignItems="center">
+          <Text mr={4}>{launch.mission_name}</Text>
+          <StorageContext.Consumer>
+            {(context) => (
+              <FavouriteButton
+                isFavourite={context.isLaunchStored(launch)}
+                onClick={() => context.storeLaunchItem(launch)}
+              />
+            )}
+          </StorageContext.Consumer>
+        </Flex>
       </Heading>
       <Stack isInline spacing="3">
         <Badge variantColor="purple" fontSize={["xs", "md"]}>

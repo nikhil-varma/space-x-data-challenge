@@ -8,6 +8,8 @@ import { formatDate } from "../utils/format-date";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
+import FavouriteButton from "./favourite-button";
+import StorageContext from "../providers/local-storage-context";
 
 const PAGE_SIZE = 12;
 
@@ -20,7 +22,7 @@ export default function Launches() {
       sort: "launch_date_utc",
     }
   );
-  console.log(data, error);
+
   return (
     <div>
       <Breadcrumbs
@@ -108,7 +110,19 @@ export function LaunchItem({ launch }) {
           lineHeight="tight"
           isTruncated
         >
-          {launch.mission_name}
+          <Flex justify="space-between">
+            <Text lineHeight="40px" isTruncated pr="6">
+              {launch.mission_name}
+            </Text>
+            <StorageContext.Consumer>
+              {(context) => (
+                <FavouriteButton
+                  isFavourite={context.isLaunchStored(launch)}
+                  onClick={() => context.storeLaunchItem(launch)}
+                />
+              )}
+            </StorageContext.Consumer>
+          </Flex>
         </Box>
         <Flex>
           <Text fontSize="sm">{formatDate(launch.launch_date_utc)} </Text>
