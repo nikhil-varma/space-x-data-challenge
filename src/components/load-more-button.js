@@ -1,5 +1,5 @@
-import React from "react";
-import { Spinner, Flex, Button } from "@chakra-ui/core";
+import React from 'react';
+import { Spinner, Flex, Button } from '@chakra-ui/core';
 
 export default function LoadMoreButton({
   testId,
@@ -22,9 +22,9 @@ export default function LoadMoreButton({
         {isLoadingMore ? (
           <Spinner />
         ) : isReachingEnd ? (
-          "That's all!"
+          'That's all!'
         ) : (
-          "Show more..."
+          'Show more...'
         )}
       </Button>
     </Flex>

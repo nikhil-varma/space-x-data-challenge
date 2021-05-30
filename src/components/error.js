@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 import {
   Flex,
   Alert,
   AlertIcon,
   AlertTitle,
   AlertDescription,
-} from "@chakra-ui/core";
+} from '@chakra-ui/core';
 
 export default function Error() {
   return (

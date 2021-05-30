@@ -1,31 +1,31 @@
-import React from "react";
-import { Badge, Box, Image, SimpleGrid, Text, Flex } from "@chakra-ui/core";
-import { format as timeAgo } from "timeago.js";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Badge, Box, Image, SimpleGrid, Text, Flex } from '@chakra-ui/core';
+import { format as timeAgo } from 'timeago.js';
+import { Link } from 'react-router-dom';
 
-import { useSpaceXPaginated } from "../utils/use-space-x";
-import { formatDate } from "../utils/format-date";
-import Error from "./error";
-import Breadcrumbs from "./breadcrumbs";
-import LoadMoreButton from "./load-more-button";
+import { useSpaceXPaginated } from '../utils/use-space-x';
+import { formatDate } from '../utils/format-date';
+import Error from './error';
+import Breadcrumbs from './breadcrumbs';
+import LoadMoreButton from './load-more-button';
 
 const PAGE_SIZE = 12;
 
 export default function Launches() {
   const { data, error, isValidating, setSize, size } = useSpaceXPaginated(
-    "/launches/past",
+    '/launches/past',
     {
       limit: PAGE_SIZE,
-      order: "desc",
-      sort: "launch_date_utc",
-    }
+      order: 'desc',
+      sort: 'launch_date_utc',
+    },
   );
   console.log(data, error);
   return (
     <div>
       <Breadcrumbs
-        testIds={["homeLink", "launchesLink"]}
-        items={[{ label: "Home", to: "/" }, { label: "Launches" }]}
+        testIds={['homeLink', 'launchesLink']}
+        items={[{ label: 'Home', to: '/' }, { label: 'Launches' }]}
       />
       <SimpleGrid
         m={[2, null, 6]}
@@ -65,11 +65,11 @@ export function LaunchItem({ launch }) {
     >
       <Image
         src={
-          launch.links.flickr_images[0]?.replace("_o.jpg", "_z.jpg") ??
+          launch.links.flickr_images[0]?.replace('_o.jpg', '_z.jpg') ??
           launch.links.mission_patch_small
         }
         alt={`${launch.mission_name} launch`}
-        height={["200px", null, "300px"]}
+        height={['200px', null, '300px']}
         width="100%"
         objectFit="cover"
         objectPosition="bottom"

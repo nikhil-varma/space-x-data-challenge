@@ -1,26 +1,26 @@
-import React from "react";
-import { Badge, Box, SimpleGrid, Text } from "@chakra-ui/core";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Badge, Box, SimpleGrid, Text } from '@chakra-ui/core';
+import { Link } from 'react-router-dom';
 
-import Error from "./error";
-import Breadcrumbs from "./breadcrumbs";
-import LoadMoreButton from "./load-more-button";
-import { useSpaceXPaginated } from "../utils/use-space-x";
+import Error from './error';
+import Breadcrumbs from './breadcrumbs';
+import LoadMoreButton from './load-more-button';
+import { useSpaceXPaginated } from '../utils/use-space-x';
 
 const PAGE_SIZE = 12;
 
 export default function LaunchPads() {
   const { data, error, isValidating, size, setSize } = useSpaceXPaginated(
-    "/launchpads",
+    '/launchpads',
     {
       limit: PAGE_SIZE,
-    }
+    },
   );
 
   return (
     <div>
       <Breadcrumbs
-        items={[{ label: "Home", to: "/" }, { label: "Launch Pads" }]}
+        items={[{ label: 'Home', to: '/' }, { label: 'Launch Pads' }]}
       />
       <SimpleGrid m={[2, null, 6]} minChildWidth="350px" spacing="4">
         {error && <Error />}
@@ -54,7 +54,7 @@ function LaunchPadItem({ launchPad }) {
     >
       <Box p="6">
         <Box d="flex" alignItems="baseline">
-          {launchPad.status === "active" ? (
+          {launchPad.status === 'active' ? (
             <Badge px="2" variant="solid" variantColor="green">
               Active
             </Badge>
@@ -71,7 +71,7 @@ function LaunchPadItem({ launchPad }) {
             textTransform="uppercase"
             ml="2"
           >
-            {launchPad.attempted_launches} attempted &bull;{" "}
+            {launchPad.attempted_launches} attempted &bull;{' '}
             {launchPad.successful_launches} succeeded
           </Box>
         </Box>
@@ -86,7 +86,7 @@ function LaunchPadItem({ launchPad }) {
           {launchPad.name}
         </Box>
         <Text color="gray.500" fontSize="sm">
-          {launchPad.vehicles_launched.join(", ")}
+          {launchPad.vehicles_launched.join(', ')}
         </Text>
       </Box>
     </Box>
