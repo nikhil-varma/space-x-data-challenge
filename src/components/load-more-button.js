@@ -22,7 +22,7 @@ export default function LoadMoreButton({
         {isLoadingMore ? (
           <Spinner />
         ) : isReachingEnd ? (
-          'That's all!'
+          "That's all!"
         ) : (
           'Show more...'
         )}
