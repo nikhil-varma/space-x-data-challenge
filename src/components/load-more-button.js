@@ -2,6 +2,7 @@ import React from "react";
 import { Spinner, Flex, Button } from "@chakra-ui/core";
 
 export default function LoadMoreButton({
+  testId,
   loadMore,
   data,
   pageSize,
@@ -13,7 +14,11 @@ export default function LoadMoreButton({
 
   return (
     <Flex justifyContent="center" my="100px">
-      <Button onClick={loadMore} disabled={isReachingEnd || isLoadingMore}>
+      <Button
+        onClick={loadMore}
+        disabled={isReachingEnd || isLoadingMore}
+        data-testid={testId}
+      >
         {isLoadingMore ? (
           <Spinner />
         ) : isReachingEnd ? (

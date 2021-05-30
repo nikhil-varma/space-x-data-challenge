@@ -24,9 +24,15 @@ export default function Launches() {
   return (
     <div>
       <Breadcrumbs
+        testIds={["homeLink", "launchesLink"]}
         items={[{ label: "Home", to: "/" }, { label: "Launches" }]}
       />
-      <SimpleGrid m={[2, null, 6]} minChildWidth="350px" spacing="4">
+      <SimpleGrid
+        m={[2, null, 6]}
+        minChildWidth="350px"
+        spacing="4"
+        data-testid="launchItems"
+      >
         {error && <Error />}
         {data &&
           data
@@ -36,6 +42,7 @@ export default function Launches() {
             ))}
       </SimpleGrid>
       <LoadMoreButton
+        testId="loadMoreButton"
         loadMore={() => setSize(size + 1)}
         data={data}
         pageSize={PAGE_SIZE}
