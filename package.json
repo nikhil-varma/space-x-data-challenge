@@ -34,8 +34,7 @@
     "cy:run": "cypress run --headless",
     "prettier-lint": "prettier --check .",
     "lint": "cross-env eslint src/** && yarn prettier-lint",
-    "lint:fix": "cross-env eslint src/** --fix && yarn format",
-    "test": "cypress run --project /src/components/* "
+    "lint:fix": "cross-env eslint src/** --fix && yarn format"
   },
   "eslintConfig": {
     "extends": "react-app"
