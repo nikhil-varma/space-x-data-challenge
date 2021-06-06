@@ -15,6 +15,7 @@ export default function LoadMoreButton({
   return (
     <Flex justifyContent="center" my="100px">
       <Button
+        type="button"
         onClick={loadMore}
         disabled={isReachingEnd || isLoadingMore}
         data-testid={testId}
