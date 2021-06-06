@@ -7,7 +7,7 @@ import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
 import { useSpaceXPaginated } from "../utils/use-space-x";
 import FavouriteButton from "./favourite-button";
-import StorageContext from "../providers/local-storage-context";
+import StorageContext from "../providers/storage-context";
 
 const PAGE_SIZE = 12;
 

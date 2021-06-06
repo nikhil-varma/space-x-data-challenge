@@ -9,7 +9,7 @@ import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
 import FavouriteButton from "./favourite-button";
-import StorageContext from "../providers/local-storage-context";
+import StorageContext from "../providers/storage-context";
 
 const PAGE_SIZE = 12;
 

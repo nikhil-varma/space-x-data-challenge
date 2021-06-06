@@ -21,7 +21,7 @@ import { useSpaceX } from "../utils/use-space-x";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import { LaunchItem } from "./launches";
-import StorageContext from "../providers/local-storage-context";
+import StorageContext from "../providers/storage-context";
 import FavouriteButton from "./favourite-button";
 
 export default function LaunchPad() {

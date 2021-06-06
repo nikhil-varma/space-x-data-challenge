@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import StorageContext from "./local-storage-context";
+import StorageContext from "./storage-context";
 import { find } from "lodash";
 
 function LocalStorageProvider(props) {

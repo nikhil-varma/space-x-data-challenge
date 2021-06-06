@@ -16,7 +16,7 @@ import {
 import { List } from "react-feather";
 import { LaunchItem } from "./launches";
 import { LaunchPadItem } from "./launch-pads";
-import StorageContext from "../providers/local-storage-context";
+import StorageContext from "../providers/storage-context";
 
 function NoItemsMessage({ items }) {
   return (
