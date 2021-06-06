@@ -26,7 +26,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-with-coverage": "react-scripts -r @cypress/instrument-cra start",
     "build": "react-scripts build",
     "cy:run-unit-tests": "cypress open-ct",
     "format": "prettier --write ./src ./cypress",
