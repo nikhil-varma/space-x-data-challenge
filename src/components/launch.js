@@ -1,7 +1,7 @@
-import React from "react";
-import { useParams, Link as RouterLink } from "react-router-dom";
-import { format as timeAgo } from "timeago.js";
-import { Watch, MapPin, Navigation, Layers } from "react-feather";
+import React from 'react';
+import { useParams, Link as RouterLink } from 'react-router-dom';
+import { format as timeAgo } from 'timeago.js';
+import { Watch, MapPin, Navigation, Layers } from 'react-feather';
 import {
   Flex,
   Heading,
@@ -19,12 +19,12 @@ import {
   Stack,
   AspectRatioBox,
   StatGroup,
-} from "@chakra-ui/core";
+} from '@chakra-ui/core';
 
-import { useSpaceX } from "../utils/use-space-x";
-import { formatDateTime } from "../utils/format-date";
-import Error from "./error";
-import Breadcrumbs from "./breadcrumbs";
+import { useSpaceX } from '../utils/use-space-x';
+import { formatDateTime } from '../utils/format-date';
+import Error from './error';
+import Breadcrumbs from './breadcrumbs';
 
 export default function Launch() {
   let { launchId } = useParams();
@@ -42,9 +42,10 @@ export default function Launch() {
   return (
     <div>
       <Breadcrumbs
+        testIds={['homeLink', 'launchesLink', 'launchItemLink']}
         items={[
-          { label: "Home", to: "/" },
-          { label: "Launches", to: ".." },
+          { label: 'Home', to: '/' },
+          { label: 'Launches', to: '..' },
           { label: `#${launch.flight_number}` },
         ]}
       />
@@ -52,7 +53,12 @@ export default function Launch() {
       <Box m={[3, 6]}>
         <TimeAndLocation launch={launch} />
         <RocketInfo launch={launch} />
-        <Text color="gray.700" fontSize={["md", null, "lg"]} my="8">
+        <Text
+          color="gray.700"
+          fontSize={['md', null, 'lg']}
+          my="8"
+          data-testid="launchDetails"
+        >
           {launch.details}
         </Text>
         <Video launch={launch} />
@@ -62,7 +68,7 @@ export default function Launch() {
   );
 }
 
-function Header({ launch }) {
+export function Header({ launch }) {
   return (
     <Flex
       bgImage={`url(${launch.links.flickr_images[0]})`}
@@ -80,76 +86,103 @@ function Header({ launch }) {
         top="5"
         right="5"
         src={launch.links.mission_patch_small}
-        height={["85px", "150px"]}
+        height={['85px', '150px']}
         objectFit="contain"
         objectPosition="bottom"
+        data-testid="launchImageBanner"
       />
       <Heading
         color="white"
         display="inline"
         backgroundColor="#718096b8"
-        fontSize={["lg", "5xl"]}
+        fontSize={['lg', '5xl']}
         px="4"
         py="2"
         borderRadius="lg"
+        data-testid="launchHeader"
       >
         {launch.mission_name}
       </Heading>
       <Stack isInline spacing="3">
-        <Badge variantColor="purple" fontSize={["xs", "md"]}>
+        <Badge
+          variantColor="purple"
+          fontSize={['xs', 'md']}
+          data-testid="launchFlightNumber"
+        >
           #{launch.flight_number}
         </Badge>
-        {launch.launch_success ? (
-          <Badge variantColor="green" fontSize={["xs", "md"]}>
-            Successful
-          </Badge>
-        ) : (
-          <Badge variantColor="red" fontSize={["xs", "md"]}>
-            Failed
-          </Badge>
-        )}
+        <Box as="span">
+          {launch.launch_success ? (
+            <Badge
+              variantColor="green"
+              fontSize={['xs', 'md']}
+              data-testid="launchStatus"
+            >
+              Successful
+            </Badge>
+          ) : (
+            <Badge
+              variantColor="red"
+              fontSize={['xs', 'md']}
+              data-testid="launchStatus"
+            >
+              Failed
+            </Badge>
+          )}
+        </Box>
       </Stack>
     </Flex>
   );
 }
 
-function TimeAndLocation({ launch }) {
+export function TimeAndLocation({ launch }) {
   return (
-    <SimpleGrid columns={[1, 1, 2]} borderWidth="1px" p="4" borderRadius="md">
+    <SimpleGrid
+      columns={[1, 1, 2]}
+      borderWidth="1px"
+      p="4"
+      borderRadius="md"
+      data-testid="timeAndLocationComponent"
+    >
       <Stat>
         <StatLabel display="flex">
-          <Box as={Watch} width="1em" />{" "}
+          <Box as={Watch} width="1em" />{' '}
           <Box ml="2" as="span">
             Launch Date
           </Box>
         </StatLabel>
-        <StatNumber fontSize={["md", "xl"]}>
+        <StatNumber fontSize={['md', 'xl']} data-testid="launchDate">
           {formatDateTime(launch.launch_date_local)}
         </StatNumber>
-        <StatHelpText>{timeAgo(launch.launch_date_utc)}</StatHelpText>
+        <StatHelpText data-testid="launchDateHelptext">
+          {timeAgo(launch.launch_date_utc)}
+        </StatHelpText>
       </Stat>
       <Stat>
         <StatLabel display="flex">
-          <Box as={MapPin} width="1em" />{" "}
+          <Box as={MapPin} width="1em" />{' '}
           <Box ml="2" as="span">
             Launch Site
           </Box>
         </StatLabel>
-        <StatNumber fontSize={["md", "xl"]}>
+        <StatNumber fontSize={['md', 'xl']}>
           <Link
             as={RouterLink}
             to={`/launch-pads/${launch.launch_site.site_id}`}
+            data-testid="launchSite"
           >
             {launch.launch_site.site_name_long}
           </Link>
         </StatNumber>
-        <StatHelpText>{launch.launch_site.site_name}</StatHelpText>
+        <StatHelpText data-testid="launchSiteName">
+          {launch.launch_site.site_name}
+        </StatHelpText>
       </Stat>
     </SimpleGrid>
   );
 }
 
-function RocketInfo({ launch }) {
+export function RocketInfo({ launch }) {
   const cores = launch.rocket.first_stage.cores;
 
   return (
@@ -159,15 +192,16 @@ function RocketInfo({ launch }) {
       mt="4"
       p="4"
       borderRadius="md"
+      data-testid="rocketInfoComponent"
     >
       <Stat>
         <StatLabel display="flex">
-          <Box as={Navigation} width="1em" />{" "}
+          <Box as={Navigation} width="1em" />{' '}
           <Box ml="2" as="span">
             Rocket
           </Box>
         </StatLabel>
-        <StatNumber fontSize={["md", "xl"]}>
+        <StatNumber fontSize={['md', 'xl']} data-testid="launchRocketName">
           {launch.rocket.rocket_name}
         </StatNumber>
         <StatHelpText>{launch.rocket.rocket_type}</StatHelpText>
@@ -175,37 +209,37 @@ function RocketInfo({ launch }) {
       <StatGroup>
         <Stat>
           <StatLabel display="flex">
-            <Box as={Layers} width="1em" />{" "}
+            <Box as={Layers} width="1em" />{' '}
             <Box ml="2" as="span">
               First Stage
             </Box>
           </StatLabel>
-          <StatNumber fontSize={["md", "xl"]}>
-            {cores.map((core) => core.core_serial).join(", ")}
+          <StatNumber fontSize={['md', 'xl']} data-testid="launchFirstStage">
+            {cores.map((core) => core.core_serial).join(', ')}
           </StatNumber>
-          <StatHelpText>
+          <StatHelpText data-testid="launchFirstStageStatus">
             {cores.every((core) => core.land_success)
               ? cores.length === 1
-                ? "Recovered"
-                : "All recovered"
-              : "Lost"}
+                ? 'Recovered'
+                : 'All recovered'
+              : 'Lost'}
           </StatHelpText>
         </Stat>
         <Stat>
           <StatLabel display="flex">
-            <Box as={Layers} width="1em" />{" "}
+            <Box as={Layers} width="1em" />{' '}
             <Box ml="2" as="span">
               Second Stage
             </Box>
           </StatLabel>
-          <StatNumber fontSize={["md", "xl"]}>
+          <StatNumber fontSize={['md', 'xl']} data-testid="launchSecondStage">
             Block {launch.rocket.second_stage.block}
           </StatNumber>
-          <StatHelpText>
-            Payload:{" "}
+          <StatHelpText data-testid="launchPayload">
+            Payload:{' '}
             {launch.rocket.second_stage.payloads
               .map((payload) => payload.payload_type)
-              .join(", ")}
+              .join(', ')}
           </StatHelpText>
         </Stat>
       </StatGroup>
@@ -213,7 +247,7 @@ function RocketInfo({ launch }) {
   );
 }
 
-function Video({ launch }) {
+export function Video({ launch }) {
   return (
     <AspectRatioBox maxH="400px" ratio={1.7}>
       <Box
@@ -221,17 +255,23 @@ function Video({ launch }) {
         title={launch.mission_name}
         src={`https://www.youtube.com/embed/${launch.links.youtube_id}`}
         allowFullScreen
+        data-testid="launchVideo"
       />
     </AspectRatioBox>
   );
 }
 
-function Gallery({ images }) {
+export function Gallery({ images = [] }) {
   return (
-    <SimpleGrid my="6" minChildWidth="350px" spacing="4">
+    <SimpleGrid
+      my="6"
+      minChildWidth="350px"
+      spacing="4"
+      data-testid="launchImageGallery"
+    >
       {images.map((image) => (
         <a href={image} key={image}>
-          <Image src={image.replace("_o.jpg", "_z.jpg")} />
+          <Image src={image.replace('_o.jpg', '_z.jpg')} />
         </a>
       ))}
     </SimpleGrid>

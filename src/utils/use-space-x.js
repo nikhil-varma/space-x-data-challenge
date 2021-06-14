@@ -1,4 +1,4 @@
-import useSWR, { useSWRInfinite } from "swr";
+import useSWR, { useSWRInfinite } from 'swr';
 
 const fetcher = async (...args) => {
   const response = await fetch(...args);

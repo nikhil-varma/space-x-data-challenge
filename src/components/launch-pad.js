@@ -1,6 +1,6 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import { MapPin, Navigation } from "react-feather";
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { MapPin, Navigation } from 'react-feather';
 import {
   Flex,
   Heading,
@@ -15,21 +15,21 @@ import {
   Spinner,
   Stack,
   AspectRatioBox,
-} from "@chakra-ui/core";
+} from '@chakra-ui/core';
 
-import { useSpaceX } from "../utils/use-space-x";
-import Error from "./error";
-import Breadcrumbs from "./breadcrumbs";
-import { LaunchItem } from "./launches";
+import { useSpaceX } from '../utils/use-space-x';
+import Error from './error';
+import Breadcrumbs from './breadcrumbs';
+import { LaunchItem } from './launches';
 
 export default function LaunchPad() {
   let { launchPadId } = useParams();
   const { data: launchPad, error } = useSpaceX(`/launchpads/${launchPadId}`);
 
-  const { data: launches } = useSpaceX(launchPad ? "/launches/past" : null, {
+  const { data: launches } = useSpaceX(launchPad ? '/launches/past' : null, {
     limit: 3,
-    order: "desc",
-    sort: "launch_date_utc",
+    order: 'desc',
+    sort: 'launch_date_utc',
     site_id: launchPad?.site_id,
   });
 
@@ -46,15 +46,15 @@ export default function LaunchPad() {
     <div>
       <Breadcrumbs
         items={[
-          { label: "Home", to: "/" },
-          { label: "Launch Pads", to: ".." },
+          { label: 'Home', to: '/' },
+          { label: 'Launch Pads', to: '..' },
           { label: launchPad.name },
         ]}
       />
       <Header launchPad={launchPad} />
       <Box m={[3, 6]}>
         <LocationAndVehicles launchPad={launchPad} />
-        <Text color="gray.700" fontSize={["md", null, "lg"]} my="8">
+        <Text color="gray.700" fontSize={['md', null, 'lg']} my="8">
           {launchPad.details}
         </Text>
         <Map location={launchPad.location} />
@@ -76,7 +76,7 @@ function Header({ launchPad }) {
       bgRepeat="no-repeat"
       minHeight="15vh"
       position="relative"
-      flexDirection={["column", "row"]}
+      flexDirection={['column', 'row']}
       p={[2, 6]}
       alignItems="flex-end"
       justifyContent="space-between"
@@ -86,22 +86,22 @@ function Header({ launchPad }) {
         display="inline"
         mx={[2, 4]}
         my="2"
-        fontSize={["md", "3xl"]}
+        fontSize={['md', '3xl']}
         borderRadius="lg"
       >
         {launchPad.site_name_long}
       </Heading>
       <Stack isInline spacing="3">
-        <Badge variantColor="purple" fontSize={["sm", "md"]}>
-          {launchPad.successful_launches}/{launchPad.attempted_launches}{" "}
+        <Badge variantColor="purple" fontSize={['sm', 'md']}>
+          {launchPad.successful_launches}/{launchPad.attempted_launches}{' '}
           successful
         </Badge>
-        {launchPad.stats === "active" ? (
-          <Badge variantColor="green" fontSize={["sm", "md"]}>
+        {launchPad.stats === 'active' ? (
+          <Badge variantColor="green" fontSize={['sm', 'md']}>
             Active
           </Badge>
         ) : (
-          <Badge variantColor="red" fontSize={["sm", "md"]}>
+          <Badge variantColor="red" fontSize={['sm', 'md']}>
             Retired
           </Badge>
         )}
@@ -115,7 +115,7 @@ function LocationAndVehicles({ launchPad }) {
     <SimpleGrid columns={[1, 1, 2]} borderWidth="1px" p="4" borderRadius="md">
       <Stat>
         <StatLabel display="flex">
-          <Box as={MapPin} width="1em" />{" "}
+          <Box as={MapPin} width="1em" />{' '}
           <Box ml="2" as="span">
             Location
           </Box>
@@ -125,13 +125,13 @@ function LocationAndVehicles({ launchPad }) {
       </Stat>
       <Stat>
         <StatLabel display="flex">
-          <Box as={Navigation} width="1em" />{" "}
+          <Box as={Navigation} width="1em" />{' '}
           <Box ml="2" as="span">
             Vehicles
           </Box>
         </StatLabel>
         <StatNumber fontSize="xl">
-          {launchPad.vehicles_launched.join(", ")}
+          {launchPad.vehicles_launched.join(', ')}
         </StatNumber>
       </Stat>
     </SimpleGrid>
