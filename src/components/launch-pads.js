@@ -1,11 +1,13 @@
 import React from "react";
-import { Badge, Box, SimpleGrid, Text } from "@chakra-ui/core";
+import { Badge, Box, Flex, SimpleGrid, Text } from "@chakra-ui/core";
 import { Link } from "react-router-dom";
 
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
 import { useSpaceXPaginated } from "../utils/use-space-x";
+import FavouriteButton from "./favourite-button";
+import StorageContext from "../providers/storage-context";
 
 const PAGE_SIZE = 12;
 
@@ -41,7 +43,7 @@ export default function LaunchPads() {
   );
 }
 
-function LaunchPadItem({ launchPad }) {
+export function LaunchPadItem({ launchPad }) {
   return (
     <Box
       as={Link}
@@ -75,16 +77,26 @@ function LaunchPadItem({ launchPad }) {
             {launchPad.successful_launches} succeeded
           </Box>
         </Box>
-
-        <Box
-          mt="1"
-          fontWeight="semibold"
-          as="h4"
-          lineHeight="tight"
-          isTruncated
-        >
-          {launchPad.name}
-        </Box>
+        <Flex justify="space-between">
+          <Box
+            mt="3"
+            fontWeight="semibold"
+            as="h4"
+            lineHeight="tight"
+            isTruncated
+          >
+            {launchPad.name}
+          </Box>
+          <StorageContext.Consumer>
+            {(context) => (
+              <FavouriteButton
+                mt="2"
+                isFavourite={context.isLaunchPadStored(launchPad)}
+                onClick={() => context.storeLaunchPad(launchPad)}
+              />
+            )}
+          </StorageContext.Consumer>
+        </Flex>
         <Text color="gray.500" fontSize="sm">
           {launchPad.vehicles_launched.join(", ")}
         </Text>
