@@ -4,7 +4,7 @@ import { format as timeAgo } from "timeago.js";
 import { Link } from "react-router-dom";
 
 import { useSpaceXPaginated } from "../utils/use-space-x";
-import { formatDate } from "../utils/format-date";
+import { formatDateToTargetLocale } from "../utils/format-date";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
@@ -17,7 +17,7 @@ export default function Launches() {
     {
       limit: PAGE_SIZE,
       order: "desc",
-      sort: "launch_date_utc",
+      sort: "launch_date_local",
     }
   );
   console.log(data, error);
@@ -111,9 +111,11 @@ export function LaunchItem({ launch }) {
           {launch.mission_name}
         </Box>
         <Flex>
-          <Text fontSize="sm">{formatDate(launch.launch_date_utc)} </Text>
+          <Text fontSize="sm">
+            {formatDateToTargetLocale(launch.launch_date_local)}{" "}
+          </Text>
           <Text color="gray.500" ml="2" fontSize="sm">
-            {timeAgo(launch.launch_date_utc)}
+            {timeAgo(launch.launch_date_local)}
           </Text>
         </Flex>
       </Box>
